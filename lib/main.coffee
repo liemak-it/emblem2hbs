@@ -25,11 +25,13 @@ processStatements = (statements) ->
     switch s.type
       when 'content' then s.string
       when 'block'
-
         params = if s.mustache?.params?.length > 0 then ' ' + _(s.mustache.params).map((p) -> p.string).join(' ') else ''
         r = ["{{#{(if _(tokens).include(s.mustache.id.original) then '#' else '')}#{s.mustache.id.original} #{params}}}"]
         if s.program?
           r.push processStatements(s.program.statements)
+        if s.inverse?
+          r.push ['{{else}}']
+          r.push processStatements(s.inverse.statements)
         r.push "{{/#{s.mustache.id.original}}}" if _(tokens).include(s.mustache.id.original)
         r
       when 'mustache'
