@@ -1,0 +1,9 @@
+.row
+  .large-24.columns
+    if view.showInstructionalText
+      .instructional-text.align-center Please select a point on the line below.
+    .slider
+.row
+  .large-24.columns
+    each tick in view.ticks
+      .tick

@@ -1,0 +1,11 @@
+<div class="row">
+    <div class="large-24 columns">{{if view.showInstructionalText}}
+        <div class="instructional-text align-center">Please select a point on the line below.</div>
+        <div class="slider"></div>
+    </div>
+</div>
+<div class="row">
+    <div class="large-24 columns">{{each tick in view.ticks}}
+        <div class="tick"></div>
+    </div>
+</div>
