@@ -12,7 +12,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/machty/emblem2hbs.git"
+    "url": "git://github.com/patientslikeme/emblem2hbs.git"
   },
   "engines": {
     "node": ">=0.4.7"
