@@ -25,6 +25,6 @@
     "underscore": "1.7.0",
     "html": "0.0.7"
   },
-  "bin":{ "emblem2hbs": "lib/main.coffee"},
+  "bin":{ "emblem2hbs": "bin/emblem2hbs.coffee"},
   "optionalDependencies": {}
 }
