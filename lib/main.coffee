@@ -17,41 +17,74 @@ result = emblem.parse(buf)
 
 tokens = ['if', 'each', 'unless']
 
-pairsToAttr = (pairs) ->
-  _(pairs).map((arr) -> "#{arr[0]}=\"#{arr[1].string}\"").join(' ').trim()
+pairsToAttrString = (pairs) ->
+  return '' unless pairs? && pairs.length > 0
+  ' ' + _(pairs).map((arr) -> "#{arr[0]}=\"#{arr[1].string}\"").join(' ').trim()
+
+paramsToString = (params) ->
+  return '' unless params? && params.length > 0
+  ' ' + _(params).map((p) -> p.string).join(' ')
 
 processStatements = (statements) ->
   _(statements).map (s) ->
     switch s.type
       when 'content' then s.string
       when 'block'
-        params = if s.mustache?.params?.length > 0 then ' ' + _(s.mustache.params).map((p) -> p.string).join(' ') else ''
-        r = ["{{#{(if _(tokens).include(s.mustache.id.original) then '#' else '')}#{s.mustache.id.original} #{params}}}"]
-        if s.program?
-          r.push processStatements(s.program.statements)
-        if s.inverse?
-          r.push ['{{else}}']
-          r.push processStatements(s.inverse.statements)
-        r.push "{{/#{s.mustache.id.original}}}" if _(tokens).include(s.mustache.id.original)
-        r
+        isToken = _(tokens).include(s.mustache.id.original)
+        arr = ["{{", (if isToken then '#' else ''), s.mustache.id.original, paramsToString(s.mustache.params), "}}"]
+        arr.push processStatements(s.program.statements) if s.program?
+        arr.push ['{{else}}', processStatements(s.inverse.statements)] if s.inverse?.statements.length > 0
+        arr.push "{{/#{s.mustache.id.original}}}" if isToken
+        arr
       when 'mustache'
-
         if s.isHelper.pairs?
-          "{{bind-attr #{pairsToAttr(s.isHelper.pairs)}}}"
-
+          "{{bind-attr #{pairsToAttrString(s.isHelper.pairs)}}}"
         else
-          pairs = if s.hash?.pairs?.length > 0 then ' ' + pairsToAttr(s.hash.pairs) else ''
-          params = if s.params?.length > 0 then ' ' + _(s.params).map((p) -> p.string).join(' ') else ''
-          r = ["{{#{s.id.original}#{params}#{pairs}}}"]
-          if s.program?
-            r.push processStatements(s.program.statements)
-          r.push "{{/#{s.id.original}}}" if _(tokens).include(s.id.original)
-          r
+          arr = ["{{", s.id.original, paramsToString(s.params), pairsToAttrString(s.hash?.pairs), "}}"]
+          arr.push processStatements(s.program.statements) if s.program?
+          arr.push "{{/#{s.id.original}}}" if _(tokens).include(s.id.original)
+          arr
       else ''
 
-output = _(processStatements(result.statements)).flatten().join('')
-pretty = html.prettyPrint(output, {'indent_size': 2, 'indent_char': ' ','max_char': 0})
-pretty = pretty.replace(/" }}/g, '"}}')
-fs.writeFileSync hbsFile, pretty
+tf = (bool) ->
+  if bool then 'T' else 'F'
+
+tagsArray = _(processStatements(result.statements)).flatten().join('').match(/<.+?>|{{.+?}}|[^<>{}]+/g);
+_(tagsArray).reject((t,i,ctx) -> t == '{{else}}' && _(['{{/if}}', '{{/unless}}']).include(ctx[i+1]))
+debugger
+
+indent = -1
+prevTag = ''
+currentTag = ''
+prevTagIsOpening = false
+prevTagIsElse = false
+prevTagIsSelfClosed = false
+prevTagIsClosed = false
+spaced = tagsArray.map (t) ->
+  isElse = t == '{{else}}'
+  isOpening = t[1] != '/' && t[2] != '/' && !isElse
+  isClosing = t.indexOf('</') == 0 || t.indexOf('{{/') == 0
+  isTokenTag = isElse || t.indexOf('{{#') == 0 || t.indexOf('{{/') == 0
+  isPlainString = _.intersection(['{', '<'], t.match(/./g)).length == 0
+  isMustachey = t[0] == '{' && t[t.length-1] == '}'
+  isHtmlSelfClosing = t[0] == '<' && t[t.length-2] == '/'
+  isSelfClosed =  isPlainString || isHtmlSelfClosing || (isMustachey && !isTokenTag)
+  currentTag = t.match(/\w+/)[0]
+  debug = '' # "#{tf(prevTagIsOpening)}, #{tf(isClosing)}, #{prevTag}, #{currentTag}"
+  unless !isElse && ((isSelfClosed && prevTagIsSelfClosed) || (prevTagIsClosed && !isClosing) || prevTagIsOpening && isClosing && (prevTag == currentTag))
+    indent += (if isOpening then 1 else -1) 
+  prevTag = currentTag
+  prevTagIsOpening = isOpening
+  prevTagIsClosed = isClosing
+  prevTagIsElse = isElse
+  prevTagIsSelfClosed = isSelfClosed
+  debug + (if indent == 0 then '' else ("  " for n in [0..indent-1]).join('')) + t
+
+
+
+# output = _(processStatements(result.statements)).flatten().join('')
+# pretty = html.prettyPrint(output, {'indent_size': 2, 'indent_char': ' ','max_char': 0, 'brace_style': 'collapse'})
+# pretty = pretty.replace(/" }}/g, '"}}')
+fs.writeFileSync hbsFile, spaced.join("\n") #pretty
 
 
