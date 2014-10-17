@@ -46,7 +46,7 @@ processStatements = (statements) ->
           arr
       else ''
 
-tagsArray = _(processStatements(result.statements)).flatten().join('').match(/<.+?>|{{.+?}}|[^<>{}]+/g);
+tagsArray = _(processStatements(result.statements)).flatten().join('').match(/<.+?>|{{.+?}}|[^<>{}]+/g) || []
 _(tagsArray).reject((t,i,ctx) -> t == '{{else}}' && _(['{{/if}}', '{{/unless}}']).include(ctx[i+1]))
 
 indent = -1
