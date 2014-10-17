@@ -65,7 +65,11 @@ spaced = tagsArray.map (t) ->
   isMustachey = t[0] == '{' && t[t.length-1] == '}'
   isHtmlSelfClosing = t[0] == '<' && t[t.length-2] == '/'
   isSelfClosed =  isPlainString || isHtmlSelfClosing || (isMustachey && !isTokenTag)
-  currentTag = t.match(/\w+/)[0]
+  wordChars = t.match(/\w+/)
+  if wordChars
+    currentTag = wordChars[0]
+  else
+    currentTag = t
   unless !isElse && (((isOpening || isSelfClosed) && prevTagIsSelfClosed) || (prevTagIsClosed && !isClosing) || prevTagIsOpening && isClosing && (prevTag == currentTag))
     indent += (if isOpening then 1 else -1) 
   prevTag = currentTag
