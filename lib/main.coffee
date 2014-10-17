@@ -46,12 +46,8 @@ processStatements = (statements) ->
           arr
       else ''
 
-tf = (bool) ->
-  if bool then 'T' else 'F'
-
 tagsArray = _(processStatements(result.statements)).flatten().join('').match(/<.+?>|{{.+?}}|[^<>{}]+/g);
 _(tagsArray).reject((t,i,ctx) -> t == '{{else}}' && _(['{{/if}}', '{{/unless}}']).include(ctx[i+1]))
-debugger
 
 indent = -1
 prevTag = ''
@@ -70,7 +66,6 @@ spaced = tagsArray.map (t) ->
   isHtmlSelfClosing = t[0] == '<' && t[t.length-2] == '/'
   isSelfClosed =  isPlainString || isHtmlSelfClosing || (isMustachey && !isTokenTag)
   currentTag = t.match(/\w+/)[0]
-  debug = '' # "#{tf(prevTagIsOpening)}, #{tf(isClosing)}, #{prevTag}, #{currentTag}"
   unless !isElse && ((isSelfClosed && prevTagIsSelfClosed) || (prevTagIsClosed && !isClosing) || prevTagIsOpening && isClosing && (prevTag == currentTag))
     indent += (if isOpening then 1 else -1) 
   prevTag = currentTag
@@ -78,13 +73,8 @@ spaced = tagsArray.map (t) ->
   prevTagIsClosed = isClosing
   prevTagIsElse = isElse
   prevTagIsSelfClosed = isSelfClosed
-  debug + (if indent == 0 then '' else ("  " for n in [0..indent-1]).join('')) + t
+  if indent == 0 then '' else ("  " for n in [0..indent-1]).join('')) + t
 
-
-
-# output = _(processStatements(result.statements)).flatten().join('')
-# pretty = html.prettyPrint(output, {'indent_size': 2, 'indent_char': ' ','max_char': 0, 'brace_style': 'collapse'})
-# pretty = pretty.replace(/" }}/g, '"}}')
-fs.writeFileSync hbsFile, spaced.join("\n") #pretty
+fs.writeFileSync hbsFile, spaced.join("\n")
 
 
