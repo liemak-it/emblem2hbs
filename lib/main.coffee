@@ -10,7 +10,7 @@ _ = require("underscore")
 emblem.handlebarsVariant = emberHandlebars
 
 emblemFile = process.argv[2]
-hbsFile = emblemFile.substr(0, emblemFile.lastIndexOf(".")) + ".hbs";
+hbsFile = emblemFile.substr(0, emblemFile.lastIndexOf(".")) + ".js.hbs";
 
 buf = fs.readFileSync(emblemFile, "utf8")
 result = emblem.parse(buf)
