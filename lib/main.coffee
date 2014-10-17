@@ -66,15 +66,14 @@ spaced = tagsArray.map (t) ->
   isHtmlSelfClosing = t[0] == '<' && t[t.length-2] == '/'
   isSelfClosed =  isPlainString || isHtmlSelfClosing || (isMustachey && !isTokenTag)
   currentTag = t.match(/\w+/)[0]
-  unless !isElse && ((isSelfClosed && prevTagIsSelfClosed) || (prevTagIsClosed && !isClosing) || prevTagIsOpening && isClosing && (prevTag == currentTag))
+  unless !isElse && (((isOpening || isSelfClosed) && prevTagIsSelfClosed) || (prevTagIsClosed && !isClosing) || prevTagIsOpening && isClosing && (prevTag == currentTag))
     indent += (if isOpening then 1 else -1) 
   prevTag = currentTag
   prevTagIsOpening = isOpening
   prevTagIsClosed = isClosing
   prevTagIsElse = isElse
   prevTagIsSelfClosed = isSelfClosed
-  if indent == 0 then '' else ("  " for n in [0..indent-1]).join('')) + t
-
+  (if indent == 0 then '' else ("  " for n in [0..indent-1]).join('')) + t
 fs.writeFileSync hbsFile, spaced.join("\n")
 
 
