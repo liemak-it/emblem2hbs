@@ -1,7 +1,9 @@
 emblem2hbs
 ==========
 
+[![NPM version](http://img.shields.io/npm/v/emblem2hbs.svg?style=flat)](https://www.npmjs.org/package/emblem2hbs)
 [![Build Status](http://img.shields.io/travis/patientslikeme/emblem2hbs.svg?style=flat)](https://travis-ci.org/patientslikeme/emblem2hbs)
+[![Downloads](http://img.shields.io/npm/dm/emblem2hbs.svg?style=flat)](https://www.npmjs.org/package/emblem2hbs)
 
 Convert Emblem Templates to Handlebars
 
