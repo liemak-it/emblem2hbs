@@ -25,6 +25,13 @@
     "underscore": "1.7.0",
     "html": "0.0.7"
   },
+  "devDependencies": {
+    "mocha": "*",
+    "chai": "*"
+  },
   "bin":{ "emblem2hbs": "bin/emblem2hbs.coffee"},
+  "scripts": {
+    "test": "./node_modules/.bin/mocha ./test/test.js"
+  },
   "optionalDependencies": {}
 }
