@@ -31,7 +31,7 @@
   },
   "bin":{ "emblem2hbs": "bin/emblem2hbs.coffee"},
   "scripts": {
-    "test": "./node_modules/.bin/mocha ./test/test.js"
+    "test": "./node_modules/.bin/mocha --compilers coffee:coffee-script/register"
   },
   "optionalDependencies": {}
 }

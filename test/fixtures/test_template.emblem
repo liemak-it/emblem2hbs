@@ -1,0 +1,73 @@
+div class={ :thingy :has-drag-handle view.domId }
+  div class={ :thingy-drag-handle view.node.node.isEditingSubnodes:disabled:handle }
+  .row.collapse
+    .columns.large-21.medium-19
+      .thingy-body
+        if view.isPreview
+          if view.node.hasOrderErrors
+            .error-indicator
+              | This move is not possible for the following reasons:
+              ul
+                each error in view.node.orderErrors
+                  li
+                    | #{error.msg}
+                    ul
+                      each node in error.nodes
+                        li.nodeLink
+                          a href=node.id
+                            | #{node.thingy.thingyText}
+          if view.node.isManyThingyContainer
+            App.ContainerPreviewView nodeBinding="view.node" sectionBinding="view.section" isFirstObjectBinding="view.isFirstObject" isLastObjectBinding="view.isLastObject"
+          else
+            section.panel
+              partial 'thingys/thingy_preview'
+          footer.portfolio-builder-item-footer
+            .section-toolbar.offset-toolbar-items-spaced.float-right
+              .offset-toolbar-item
+                  button.button click="addNode portfolioModule view.node"
+                    | Add item below
+
+        if view.isEditing
+          .portfolio-builder-item-body.test-portfolio-editor
+            partial "node_instructions"
+
+            .row.spaced-vertical.response-format
+              label.columns.large-5.medium-5 for=responseSelect Response format
+              .columns.large-16.medium-16.end
+                App.thingyTypeSelect contentBinding="view.thingyTypes" optionLabelPath="content.label" optionValuePath="content.value" objectBinding='node.thingy' prompt="Select item type" optionGroupPath='group' nodeBinding="node" class="large-19" linkToLabelBinding="responseSelect"
+            if view.node.isManyThingyContainer
+              App.MatrixEditView contentBinding="view.node"
+            else
+              App.NodeEditView contentBinding="view.node.thingy" nodeBinding="view.node"
+
+
+            footer.portfolio-builder-item-footer
+              .row.spaced-vertical
+                .columns.large-24.medium-24
+                  .button-array.float-left
+                    if view.sectionHasSiblings
+                      App.MoveToModuleSelect portfolioBinding="portfolio" moduleBinding="view.section" thingyBinding="view.node"
+                    unless view.isFirstObject
+                      button.button click="moveNodeUp view.node view.section" Move up
+                    unless view.isLastObject
+                      button.button click="moveNodeDown view.node view.section" Move down
+                  .button-array.float-right
+                    if node.isSaving
+                      button.button Saving ...
+                    else
+                      button.button click="stopEditingNode view.node view.section"
+                        | Save item
+                      button.button click="duplicateNode view.node view.section" Duplicate
+                      button.button click="removeNode view.node view.section" Delete
+
+        if view.isHistory
+          App.NodeHistoryView nodeBinding='view.node'
+
+    .columns.large-3.medium-5
+      ul.thingy-editor-tabs role="toolbar"
+        li
+          button class={view.isPreview:yah:not-a-yah :thingy-editor-tabs-button} click="stopEditingNode view.node" Preview
+        li
+          button class={view.isEditing:yah:not-a-yah :thingy-editor-tabs-button} click="startEditingNode view.node" Edit
+        li
+          button class={view.isHistory:yah:not-a-yah :thingy-editor-tabs-button} click="startHistoryingNode view.node" History

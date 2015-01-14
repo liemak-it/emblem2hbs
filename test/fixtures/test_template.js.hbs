@@ -1,0 +1,127 @@
+<div {{bind-attr class=":thingy :has-drag-handle view.domId"}}>
+  <div {{bind-attr class=":thingy-drag-handle view.node.node.isEditingSubnodes:disabled:handle"}}>
+  </div>
+  <div class="row collapse">
+    <div class="columns large-21 medium-19">
+      <div class="thingy-body">
+        {{#if view.isPreview}}
+          {{#if view.node.hasOrderErrors}}
+            <div class="error-indicator">
+              This move is not possible for the following reasons:
+              <ul>
+                {{#each error in view.node.orderErrors}}
+                  <li>
+                    {{error.msg}}
+                    <ul>
+                      {{#each node in error.nodes}}
+                        <li class="nodeLink">
+                          <a {{bind-attr href="node.id"}}>
+                            {{node.thingy.thingyText}}
+                          </a>
+                        </li>
+                      {{/each}}
+                    </ul>
+                  </li>
+                {{/each}}
+              </ul>
+            </div>
+          {{/if}}
+          {{#if view.node.isManyThingyContainer}}
+            {{view App.ContainerPreviewView nodeBinding="view.node" sectionBinding="view.section" isFirstObjectBinding="view.isFirstObject" isLastObjectBinding="view.isLastObject"}}
+          {{else}}
+            <section class="panel">
+              {{partial "thingys/thingy_preview"}}
+            </section>
+          {{/if}}
+          <footer class="portfolio-builder-item-footer">
+            <div class="section-toolbar offset-toolbar-items-spaced float-right">
+              <div class="offset-toolbar-item">
+                <button {{action "addNode" portfolioModule view.node on="click"}} class="button">
+                  Add item below
+                </button>
+              </div>
+            </div>
+          </footer>
+        {{/if}}
+        {{#if view.isEditing}}
+          <div class="portfolio-builder-item-body test-portfolio-editor">
+            {{partial "node_instructions"}}
+            <div class="row spaced-vertical response-format">
+              <label {{bind-attr for="responseSelect"}} class="columns large-5 medium-5">
+                Response format
+              </label>
+              <div class="columns large-16 medium-16 end">
+                {{view App.thingyTypeSelect contentBinding="view.thingyTypes" optionLabelPath="content.label" optionValuePath="content.value" objectBinding="node.thingy" prompt="Select item type" optionGroupPath="group" nodeBinding="node" class="large-19" linkToLabelBinding="responseSelect"}}
+              </div>
+            </div>
+            {{#if view.node.isManyThingyContainer}}
+              {{view App.MatrixEditView contentBinding="view.node"}}
+            {{else}}
+              {{view App.NodeEditView contentBinding="view.node.thingy" nodeBinding="view.node"}}
+            {{/if}}
+            <footer class="portfolio-builder-item-footer">
+              <div class="row spaced-vertical">
+                <div class="columns large-24 medium-24">
+                  <div class="button-array float-left">
+                    {{#if view.sectionHasSiblings}}
+                      {{view App.MoveToModuleSelect portfolioBinding="portfolio" moduleBinding="view.section" thingyBinding="view.node"}}
+                    {{/if}}
+                    {{#unless view.isFirstObject}}
+                      <button {{action "moveNodeUp" view.node view.section on="click"}} class="button">
+                        Move up
+                      </button>
+                    {{/unless}}
+                    {{#unless view.isLastObject}}
+                      <button {{action "moveNodeDown" view.node view.section on="click"}} class="button">
+                        Move down
+                      </button>
+                    {{/unless}}
+                  </div>
+                  <div class="button-array float-right">
+                    {{#if node.isSaving}}
+                      <button class="button">
+                        Saving ...
+                      </button>
+                    {{else}}
+                      <button {{action "stopEditingNode" view.node view.section on="click"}} class="button">
+                        Save item
+                      </button>
+                      <button {{action "duplicateNode" view.node view.section on="click"}} class="button">
+                        Duplicate
+                      </button>
+                      <button {{action "removeNode" view.node view.section on="click"}} class="button">
+                        Delete
+                      </button>
+                    {{/if}}
+                  </div>
+                </div>
+              </div>
+            </footer>
+          </div>
+        {{/if}}
+        {{#if view.isHistory}}
+          {{view App.NodeHistoryView nodeBinding="view.node"}}
+        {{/if}}
+      </div>
+    </div>
+    <div class="columns large-3 medium-5">
+      <ul role="toolbar" class="thingy-editor-tabs">
+        <li>
+          <button {{bind-attr class="view.isPreview:yah:not-a-yah :thingy-editor-tabs-button"}} {{action "stopEditingNode" view.node on="click"}}>
+            Preview
+          </button>
+        </li>
+        <li>
+          <button {{bind-attr class="view.isEditing:yah:not-a-yah :thingy-editor-tabs-button"}} {{action "startEditingNode" view.node on="click"}}>
+            Edit
+          </button>
+        </li>
+        <li>
+          <button {{bind-attr class="view.isHistory:yah:not-a-yah :thingy-editor-tabs-button"}} {{action "startHistoryingNode" view.node on="click"}}>
+            History
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
