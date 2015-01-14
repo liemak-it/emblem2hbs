@@ -1,7 +1,7 @@
 {
   "name": "emblem2hbs",
   "description": "Convert emblem templates to Handlebars",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "homepage": "http://www.emblemjs.com/",
   "keywords": [
     "ember",
@@ -15,7 +15,7 @@
     "url": "git://github.com/patientslikeme/emblem2hbs.git"
   },
   "engines": {
-    "node": ">=0.4.7"
+    "node": "~0.10.0"
   },
   "dependencies": {
     "coffee-script": "1.8.0",
