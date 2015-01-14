@@ -23,10 +23,12 @@ Processor.process = (input) ->
   paramsToString = (params) ->
     return '' unless params? && params.length > 0
     ' ' + _(params).map((p) ->
-      if p.type == "STRING"
-        "\"#{p.string}\""
-      else
-        p.string
+      switch p.type
+        when "STRING" then "\"#{p.string}\""
+        when "ID" then p.original
+        when "BOOLEAN" then p.bool
+        when "INTEGER" then p.integer
+        else throw new Error("Unsupported param type: #{p.type}")
     ).join(' ')
 
   processStatements = (statements) ->
