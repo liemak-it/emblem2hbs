@@ -1,7 +1,7 @@
 {
   "name": "emblem2hbs",
   "description": "Convert emblem templates to Handlebars",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "homepage": "http://www.emblemjs.com/",
   "keywords": [
     "ember",
@@ -29,7 +29,9 @@
     "mocha": "*",
     "chai": "*"
   },
-  "bin":{ "emblem2hbs": "bin/emblem2hbs.coffee"},
+  "bin": {
+    "emblem2hbs": "bin/emblem2hbs.coffee"
+  },
   "scripts": {
     "test": "./node_modules/.bin/mocha --compilers coffee:coffee-script/register"
   },
