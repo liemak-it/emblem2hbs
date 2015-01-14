@@ -15,7 +15,7 @@
     "url": "git://github.com/patientslikeme/emblem2hbs.git"
   },
   "engines": {
-    "node": "~0.10.0"
+    "node": ">=0.8.0"
   },
   "dependencies": {
     "coffee-script": "1.8.0",
