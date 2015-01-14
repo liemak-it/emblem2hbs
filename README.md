@@ -1,24 +1,21 @@
 emblem2hbs
 ==========
 
+[![NPM version](http://img.shields.io/npm/v/emblem2hbs.svg?style=flat)](https://www.npmjs.org/package/emblem2hbs)
+[![Build Status](http://img.shields.io/travis/patientslikeme/emblem2hbs.svg?style=flat)](https://travis-ci.org/patientslikeme/emblem2hbs)
+[![Downloads](http://img.shields.io/npm/dm/emblem2hbs.svg?style=flat)](https://www.npmjs.org/package/emblem2hbs)
+
 Convert Emblem Templates to Handlebars
 
 ```
-git clone git@github.com:patientslikeme/emblem2hbs.git
-cd emblem2hbs
-npm install -g
-```
-
-...somewhere else...
-
-```
+npm install -g emblem2hbs
 emblem2hbs somefile.emblem
 ```
 
 Credits
 =======
 
-Created by Jonathan Slate.  Additional work by Thijs de Vries and Nat Budin.
+Created by Jonathan Slate.  Additional work by Thijs de Vries, Nat Budin and Morgan Wigmanich.
 
 License
 =======
