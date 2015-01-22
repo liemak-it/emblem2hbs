@@ -41,6 +41,8 @@ describe 'Processor', ->
       assert.equal(Processor.process(emblem), hbs)
       
     for group_name, example_group of examples
-      for example in example_group
-        it "should process the #{group_name} example '#{example}' correctly", ->
-          assert.equal(Processor.process(example[0]), example[1])
+      do (group_name, example_group) ->
+        for example in example_group
+          do (group_name, example) ->
+            it "should process the #{group_name} example '#{example}' correctly", ->
+              assert.equal(Processor.process(example[0]), example[1])
