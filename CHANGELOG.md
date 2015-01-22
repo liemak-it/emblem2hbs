@@ -1,3 +1,8 @@
+## Version 1.0.2 - January 22, 2015
+
+* Bugfix: support all the value types in pairs as well as params
+* Fixes to the test suite to close over the looped examples
+
 ## Version 1.0.1 - January 14, 2015
 
 * Test suite based on Emblem's example docs
