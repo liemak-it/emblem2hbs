@@ -16,6 +16,7 @@ examples =
     ['button{action "delete"} Delete', '<button {{action "delete"}}>Delete</button>']
     ['img{bind-attr src="logoUrl"} alt="logo"', '<img {{bind-attr src="logoUrl"}} alt="logo" />']
     ['a{bind-attr class="isActive"}{action \'toggleHeader\'} x', '<a {{bind-attr class="isActive"}} {{action "toggleHeader"}}>x</a>']
+    ['App.MyTextArea objectBinding="view.answer" hideFieldName=true rows=20 cols=40', '{{view App.MyTextArea objectBinding="view.answer" hideFieldName=true rows=20 cols=40}}']
   ]
 
 describe 'Processor', ->

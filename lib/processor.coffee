@@ -9,27 +9,27 @@ Processor.process = (input) ->
 
   emblem.handlebarsVariant = emberHandlebars
   result = emblem.parse(input)
+  
+  handlebarsStringForValue = (value) ->
+    switch value.type
+      when "STRING" then "\"#{value.string}\""
+      when "ID" then value.original
+      when "BOOLEAN" then value.bool
+      when "INTEGER" then value.integer
+      else throw new Error("Unsupported value type: #{value.type}")
 
   pairsToAttrString = (pairs) ->
     return '' unless pairs? && pairs.length > 0
     ' ' + _(pairs).map((arr) ->
       key = arr[0]
-      value = arr[1].string
-      value = "\"#{value}\"" if arr[1].type == "STRING"
+      value = handlebarsStringForValue(arr[1])
 
       "#{key}=#{value}"
     ).join(' ').trim()
 
   paramsToString = (params) ->
     return '' unless params? && params.length > 0
-    ' ' + _(params).map((p) ->
-      switch p.type
-        when "STRING" then "\"#{p.string}\""
-        when "ID" then p.original
-        when "BOOLEAN" then p.bool
-        when "INTEGER" then p.integer
-        else throw new Error("Unsupported param type: #{p.type}")
-    ).join(' ')
+    ' ' + _(params).map((p) -> handlebarsStringForValue(p)).join(' ')
 
   processStatements = (statements) ->
     _(statements).map (s) ->
