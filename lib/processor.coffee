@@ -16,7 +16,17 @@ Processor.process = (input) ->
       when "ID" then value.original
       when "BOOLEAN" then value.bool
       when "INTEGER" then value.integer
+      when undefined then handlebarsStringForSubexpression(value)
       else throw new Error("Unsupported value type: #{value.type}")
+
+  handlebarsStringForSubexpression = (value) ->
+    if value.id?.string and value.hash?.pairs
+      "(" +
+        value.id.string +
+        pairsToAttrString(value.hash.pairs) +
+        ")"
+    else
+      throw new Error("Unsupported value type: #{value.type}")
 
   pairsToAttrString = (pairs) ->
     return '' unless pairs? && pairs.length > 0
