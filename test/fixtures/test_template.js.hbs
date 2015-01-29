@@ -105,6 +105,9 @@
       </div>
     </div>
     <div class="columns large-3 medium-5">
+      {{#link-to "some-route" (query-params page=pageNumber)}}
+        Link text
+      {{/link-to}}
       <ul role="toolbar" class="thingy-editor-tabs">
         <li>
           <button {{bind-attr class="view.isPreview:yah:not-a-yah :thingy-editor-tabs-button"}} {{action "stopEditingNode" view.node on="click"}}>

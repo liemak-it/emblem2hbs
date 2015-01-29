@@ -30,6 +30,14 @@ describe 'Processor', ->
       hbs = "<div class=\"heading\"><h1>Hello world</h1><span>This is my page</span></div>"
       assert.equal(Processor.process(emblem), hbs)
     
+    it 'should work with subexpressions like query-params', ->
+      emblem = """
+        = link-to "some-route" (query-params page=pageNumber)
+          | Link text
+      """
+      hbs = "{{#link-to \"some-route\" (query-params page=pageNumber)}}Link text{{/link-to}}"
+      assert.equal(Processor.process(emblem), hbs)
+
     it 'should turn some Emblem with Handlebars tags into Handlebars', ->
       emblem = """
         .heading
