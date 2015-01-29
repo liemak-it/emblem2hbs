@@ -20,13 +20,10 @@ Processor.process = (input) ->
       else throw new Error("Unsupported value type: #{value.type}")
 
   handlebarsStringForSubexpression = (value) ->
-    if value.id?.string and value.hash?.pairs
-      "(" +
-        value.id.string +
-        pairsToAttrString(value.hash.pairs) +
-        ")"
-    else
-      throw new Error("Unsupported value type: #{value.type}")
+    throw new Error("Subexpression with no id: #{value}") unless value.id?.original
+    arr = ["(", value.id.original, paramsToString(value.params), pairsToAttrString(value.hash?.pairs), ")"]
+    arr.push processStatements(value.program.statements) if value.program?
+    _(arr).flatten().join('')
 
   pairsToAttrString = (pairs) ->
     return '' unless pairs? && pairs.length > 0
