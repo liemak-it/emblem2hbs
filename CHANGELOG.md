@@ -1,3 +1,7 @@
+## Version 1.1.0 - January 29, 2015
+
+* Support subexpressions (thanks @raycohen for the pull request!)
+
 ## Version 1.0.2 - January 22, 2015
 
 * Bugfix: support all the value types in pairs as well as params
