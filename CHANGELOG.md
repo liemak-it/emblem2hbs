@@ -1,3 +1,7 @@
+## Version 1.1.1 - February 8, 2015
+
+* Support non-escaped mustache tags (issue #3)
+
 ## Version 1.1.0 - January 29, 2015
 
 * Support subexpressions (thanks @raycohen for the pull request!)
