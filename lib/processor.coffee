@@ -49,9 +49,12 @@ Processor.process = (input) ->
           arr.push "{{/#{s.mustache.id.original}}}"
           arr
         when 'mustache'
-          arr = ["{{", s.id.original, paramsToString(s.params), pairsToAttrString(s.hash?.pairs), "}}"]
+          arr = [s.id.original, paramsToString(s.params), pairsToAttrString(s.hash?.pairs)]
           arr.push processStatements(s.program.statements) if s.program?
-          arr
+          if s.escaped
+            ["{{"].concat(arr).concat(["}}"])
+          else
+            ["{{{"].concat(arr).concat(["}}}"])            
         else ""
 
   _(processStatements(result.statements)).flatten().join('')

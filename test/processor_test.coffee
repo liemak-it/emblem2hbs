@@ -18,6 +18,7 @@ examples =
     ['a{bind-attr class="isActive"}{action \'toggleHeader\'} x', '<a {{bind-attr class="isActive"}} {{action "toggleHeader"}}>x</a>']
     ['App.MyTextArea objectBinding="view.answer" hideFieldName=true rows=20 cols=40', '{{view App.MyTextArea objectBinding="view.answer" hideFieldName=true rows=20 cols=40}}']
     ['p {{echofun true (hello how="are" you=false) 1 not=true fun=(equal "ECHO hello" (echo (hello))) win="yes"}}', '<p>{{echofun true (hello how="are" you=false) 1 not=true fun=(equal "ECHO hello" (echo (hello))) win="yes"}}</p>']
+    ['== value', '{{{value}}}']
   ]
 
 describe 'Processor', ->
