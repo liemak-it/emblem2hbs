@@ -62,6 +62,8 @@ div class={ :thingy :has-drag-handle view.domId }
 
         if view.isHistory
           App.NodeHistoryView nodeBinding='view.node'
+          
+    == rawHTML
 
     .columns.large-3.medium-5
       = link-to 'some-route' (query-params page=pageNumber)

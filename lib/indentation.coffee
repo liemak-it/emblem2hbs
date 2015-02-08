@@ -4,7 +4,7 @@ Indentation = {}
 
 Indentation.indent = (handlebars) ->
 
-  tagsArray = handlebars.match(/<.+?>|{{.+?}}|[^<>{}]+/g) || []
+  tagsArray = handlebars.match(/<.+?>|{{{?.+?}}}?|[^<>{}]+/g) || []
   _(tagsArray).reject((t,i,ctx) -> t == '{{else}}' && _(['{{/if}}', '{{/unless}}']).include(ctx[i+1]))
 
   indent = -1
