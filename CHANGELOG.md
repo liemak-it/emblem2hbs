@@ -1,4 +1,8 @@
-## Version 1.1.1 - February 8, 2015
+## Version 1.1.2 - February 8, 2015
+
+* Support non-escaped mustache tags in indentation as well as processor (issue #3)
+
+## Version 1.1.1 - February 8, 2015 (yanked)
 
 * Support non-escaped mustache tags (issue #3)
 
