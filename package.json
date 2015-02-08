@@ -1,7 +1,7 @@
 {
   "name": "emblem2hbs",
   "description": "Convert emblem templates to Handlebars",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "homepage": "http://www.emblemjs.com/",
   "keywords": [
     "ember",
