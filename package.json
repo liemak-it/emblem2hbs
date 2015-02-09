@@ -29,10 +29,11 @@
   },
   "devDependencies": {
     "mocha": "*",
-    "chai": "*"
+    "chai": "*",
+    "mocha-better-spec-reporter": "*"
   },
   "scripts": {
-    "test": "./node_modules/.bin/mocha --compilers coffee:coffee-script/register"
+    "test": "./node_modules/.bin/mocha --compilers coffee:coffee-script/register --reporter mocha-better-spec-reporter"
   },
   "optionalDependencies": {}
 }
