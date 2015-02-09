@@ -1,3 +1,9 @@
+## Version 1.1.3 - February 9, 2015
+
+* Rewrite bin/emblem2hbs in JavaScript and have it register coffee-script
+* Remove node_modules from repo
+* Clean up test suite output
+
 ## Version 1.1.2 - February 8, 2015
 
 * Support non-escaped mustache tags in indentation as well as processor (issue #3)
