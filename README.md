@@ -15,7 +15,7 @@ emblem2hbs somefile.emblem
 Credits
 =======
 
-Created by Jonathan Slate.  Additional work by Thijs de Vries, Nat Budin Morgan Wigmanich, and Xavier Cambar.
+Created by Jonathan Slate.  Additional work by Thijs de Vries, Nat Budin, Morgan Wigmanich, and Xavier Cambar.
 
 License
 =======
