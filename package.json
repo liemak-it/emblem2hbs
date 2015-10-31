@@ -1,7 +1,7 @@
 {
   "name": "emblem2hbs",
   "description": "Convert emblem templates to Handlebars",
-  "version": "1.1.3",
+  "version": "2.0.0",
   "bin": {
     "emblem2hbs": "bin/emblem2hbs.js"
   },

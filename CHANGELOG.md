@@ -1,3 +1,10 @@
+## Version 2.0.0 - October 31, 2015
+
+* A spoooooky release for Halloween!  Thanks to @xcambar for the following patches.
+* Upgrade Emblem requirement to 0.6.1 and start using its built-in compiler.  This allows us to completely remove our custom processor.
+* Replace the ".js.hbs" extension with plain ".hbs", which is the ember-cli default.
+* Drop support for Node 0.8.x.
+
 ## Version 1.1.3 - February 9, 2015
 
 * Rewrite bin/emblem2hbs in JavaScript and have it register coffee-script
