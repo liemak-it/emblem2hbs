@@ -16,6 +16,7 @@
     "type": "git",
     "url": "git://github.com/patientslikeme/emblem2hbs.git"
   },
+  "license": "MIT",
   "engines": {
     "node": ">=0.10.0"
   },
