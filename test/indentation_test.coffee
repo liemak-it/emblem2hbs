@@ -18,7 +18,7 @@ describe 'Indentation', ->
       </div>
       """
       assert.equal(Indentation.indent(unindented), indented)
-    
+
     it 'should correctly indent Handlebars', ->
       unindented = "<div class=\"heading\" {{bind-attr disabled=model.disabled}}>{{#if conditional}}<h1>Hello world</h1>{{/if}}</div>"
       indented = """
@@ -31,7 +31,7 @@ describe 'Indentation', ->
       </div>
       """
       assert.equal(Indentation.indent(unindented), indented)
-    
+
     it 'should correctly indent Handlebars with triple-staches', ->
       unindented = "<div class=\"heading\" {{bind-attr disabled=model.disabled}}>{{{value}}}</div>"
       indented = """

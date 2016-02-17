@@ -29,7 +29,7 @@ Indentation.indent = (handlebars) ->
     else
       currentTag = t
     unless !isElse && (((isOpening || isSelfClosed) && prevTagIsSelfClosed) || (prevTagIsClosed && !isClosing) || prevTagIsOpening && isClosing && (prevTag == currentTag))
-      indent += (if isOpening then 1 else -1) 
+      indent += (if isOpening then 1 else -1)
     prevTag = currentTag
     prevTagIsOpening = isOpening
     prevTagIsClosed = isClosing
