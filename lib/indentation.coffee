@@ -1,3 +1,4 @@
+# coffeelint: disable=max_line_length
 _ = require("underscore")
 
 Indentation = {}

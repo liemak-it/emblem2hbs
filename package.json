@@ -26,11 +26,13 @@
     "underscore": "~1.8.0"
   },
   "devDependencies": {
-    "mocha": "*",
-    "chai": "*"
+    "chai": "*",
+    "coffeelint": "*",
+    "mocha": "*"
   },
   "scripts": {
-    "test": "./node_modules/.bin/mocha --compilers coffee:coffee-script/register"
+    "test": "mocha --compilers coffee:coffee-script/register",
+    "lint": "coffeelint ./lib/* || true"
   },
   "optionalDependencies": {}
 }
