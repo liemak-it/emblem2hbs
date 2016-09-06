@@ -8,7 +8,7 @@ var fs = require('fs'),
 
 if (process.argv.length < 3) {
   if (process.stdin.isTTY) {
-    console.log('USAGE: emblem2hbs filetoconvert.emblem or in piped format `pbcopy | emblem2hbs | pbpaste`');
+    console.log('USAGE: `emblem2hbs filetoconvert.emblem [destinationFilename]` or in piped format `pbcopy | emblem2hbs | pbpaste`');
   }
   else {
     processFromPipe();
