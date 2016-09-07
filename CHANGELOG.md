@@ -1,3 +1,7 @@
+## Version 2.1.0 - September 7, 2016
+
+* Ability to use more easily through command-line pipes (thanks @maschwenk!)
+
 ## Version 2.0.0 - October 31, 2015
 
 * A spoooooky release for Halloween!  Thanks to @xcambar for the following patches.
