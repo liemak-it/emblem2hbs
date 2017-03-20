@@ -1,10 +1,15 @@
 #!/usr/bin/env node
 
-require('coffee-script').register()
-
 var fs = require('fs'),
-    indentation = require('../lib/indentation'),
+    beautify = require('js-beautify').html,
     buf, emblemFile, hbsFile, output;
+
+var beautifyOpts = {
+  indent_size: 2,
+  indent_handlebars: true,
+  end_with_newline: true,
+  brace_style: 'expand'
+};
 
 if (process.argv.length < 3) {
   if (process.stdin.isTTY) {
@@ -18,7 +23,7 @@ if (process.argv.length < 3) {
   hbsFile = process.argv[3] ? process.argv[3] : emblemFile.substr(0, emblemFile.lastIndexOf('.')) + '.hbs';
   buf = fs.readFileSync(emblemFile, 'utf8');
   output = require('emblem').default.compile(buf);
-  fs.writeFileSync(hbsFile, indentation.indent(output));
+  fs.writeFileSync(hbsFile, beautify(output, beautifyOpts));
 }
 
 function processFromPipe() {
@@ -35,7 +40,7 @@ function processFromPipe() {
 
   input.on('end', function(){
     var converted = require('emblem').default.compile(data);
-    output.end(indentation.indent(converted));
+    output.end(beautify(converted, beautifyOpts));
   });
 
   output.on('error', function(err) {
