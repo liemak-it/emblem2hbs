@@ -7,8 +7,7 @@ var fs = require('fs'),
 var beautifyOpts = {
   indent_size: 2,
   indent_handlebars: true,
-  end_with_newline: true,
-  brace_style: 'expand'
+  end_with_newline: true
 };
 
 if (process.argv.length < 3) {
