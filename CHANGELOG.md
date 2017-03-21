@@ -1,3 +1,9 @@
+## Version 2.2.0 - March 21, 2017
+
+* Thanks to @offirgolan for the following patches!
+* Upgrade Emblem to 0.9.0
+* Switch to JS Beautify as the formatting engine
+
 ## Version 2.1.0 - September 7, 2016
 
 * Ability to use more easily through command-line pipes (thanks @maschwenk!)
